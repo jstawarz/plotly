@@ -37,6 +37,7 @@ function buildMetadata(sample) {
     // Filter the data for the object with the desired sample number
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
     var result = resultArray[0];
+
     // Use d3 to select the panel with id of `#sample-metadata`
     var PANEL = d3.select("#sample-metadata");
 
@@ -62,7 +63,7 @@ function buildCharts(sample) {
     var sampleArray = data.samples;
     var metadataArray = data.metadata 
     // 4. Create a variable that filters the samples for the object with the desired sample number.
-    var filteredArray = sampleArray.filter(sampleObj => sampleObj.id ==sample);
+    var filteredArray = sampleArray.filter(sampleObj => sampleObj.id == sample);
     var filteredMetadata = metadataArray.filter(sampleObj => sampleObj.id == sample);
     //  5. Create a variable that holds the first sample in the array.
     var result = filteredArray[0];
@@ -78,7 +79,9 @@ function buildCharts(sample) {
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
 
-    var yticks = out_id.slice(0,10).map(otu => "OTU" + otu).reverse();
+    var yticks = otu_id.slice(0,10).map(otu => "OTU" + otu).reverse();
+    var xticks = sample_value.slice(0,10).reverse()
+    console.log(yticks);
 
     // 8. Create the trace for the bar chart. 
     var barData = [{
@@ -131,7 +134,7 @@ function buildCharts(sample) {
       type: "indicator",
       mode: "gauge+number",
       value: wash_freq,
-      gauge {
+      gauge: {
         axis: {range: [null,10], tickcolor: "black"},
         bar: {color: "black" },
         bgcolor: "white",
